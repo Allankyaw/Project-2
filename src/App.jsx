@@ -2,16 +2,16 @@ import React from "react";
 import { useState } from "react";
 
 function App() {
-  const [dogImage, setDogImage] = useState(null);
-  const [catImage, setCatImage] = useState(null);
+  const [dogImage, setDogImage] = useState([]);
+  const [catImage, setCatImage] = useState([]);
 
   const handleDogClick = async () => {
     const res = await fetch(
       "https://api.thedogapi.com/v1/images/search?limit=1"
     );
     if (res.status === 200) {
-      const data = await res.json();
-      setDogImage(data[0].url);
+      const dogData = await res.json();
+      setDogImage(dogData.map((data) => data.url));
     } else {
       alert(`Something went wrong: ${res.status} code returned`);
     }
@@ -22,8 +22,8 @@ function App() {
       "https://api.thecatapi.com/v1/images/search?limit=1"
     );
     if (res.status === 200) {
-      const data = await res.json();
-      setCatImage(data[0].url);
+      const catData = await res.json();
+      setCatImage(catData.map((data) => data.url));
     } else {
       alert(`Something went wrong: ${res.status} code returned`);
     }
@@ -32,18 +32,22 @@ function App() {
   return (
     <>
       <button onClick={handleDogClick}>Get a dog</button>
-      {dogImage && (
-        <div>
-          <img src={dogImage} alt="Dog" />
-        </div>
-      )}
+      <div>
+        {dogImage.map((url, index) => (
+          <div key={index} className="dog">
+            <img src={url} alt="Dog" />
+          </div>
+        ))}
+      </div>
 
       <button onClick={handleCatClick}>Get a cat</button>
-      {catImage && (
-        <div>
-          <img src={catImage} alt="Cat" />
-        </div>
-      )}
+      <div>
+        {catImage.map((url, index) => (
+          <div key={index} className="cat">
+            <img src={url} alt="cat" />
+          </div>
+        ))}
+      </div>
     </>
   );
 }
