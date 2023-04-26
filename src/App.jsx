@@ -8,12 +8,10 @@ function App() {
   const [catImages, setCatImages] = useState([]);
 
   const handleDogClick = async () => {
-    const res = await fetch(
-      "https://api.thedogapi.com/v1/images/search?limit=1"
-    );
+    const res = await fetch("https://dog.ceo/api/breeds/image/random/3");
     if (res.status === 200) {
       const dogData = await res.json();
-      setDogImages(dogData.map((data) => data.url));
+      setDogImages(dogData.message.map((element) => element));
     } else {
       alert(`Something went wrong: ${res.status} code returned`);
     }
@@ -21,11 +19,11 @@ function App() {
 
   const handleCatClick = async () => {
     const res = await fetch(
-      "https://api.thecatapi.com/v1/images/search?limit=1"
+      "https://api.thecatapi.com/v1/images/search?limit=10"
     );
     if (res.status === 200) {
       const catData = await res.json();
-      setCatImages(catData.map((data) => data.url));
+      setCatImages(catData.map((element) => element.url));
     } else {
       alert(`Something went wrong: ${res.status} code returned`);
     }
@@ -33,14 +31,12 @@ function App() {
 
   return (
     <>
-      <button onClick={handleDogClick}>Get a dog</button>
       <div>
-        <DogImages dogImages={dogImages} />
+        <DogImages dogImages={dogImages} handleClick={handleDogClick} />
       </div>
 
-      <button onClick={handleCatClick}>Get a cat</button>
       <div>
-        <CatImages catImages={catImages} />
+        <CatImages catImages={catImages} handleClick={handleCatClick} />
       </div>
     </>
   );
