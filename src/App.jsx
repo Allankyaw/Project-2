@@ -3,7 +3,8 @@ import { useState } from "react";
 import DogImages from "./Components/DogImages";
 import CatImages from "./Components/CatImages";
 import { Routes, Route } from "react-router-dom";
-import { Link } from "react-router-dom";
+import NavBar from "./Components/NavBar";
+// import { Link } from "react-router-dom";
 
 function App() {
   const [dogImages, setDogImages] = useState([]);
@@ -33,27 +34,26 @@ function App() {
 
   return (
     <>
-      <nav>
-        <Link to="/DogImages">Go to Dogs</Link>
-        <Link to="/CatImages">Go to Cats</Link>
-      </nav>
-      <main>
-        <Routes>
-          <Route path="/" />
-          <Route
-            path="/DogImages"
-            element={
-              <DogImages dogImages={dogImages} handleClick={handleDogClick} />
-            }
-          />
-          <Route
-            path="/CatImages"
-            element={
-              <CatImages catImages={catImages} handleClick={handleCatClick} />
-            }
-          />
-        </Routes>
-      </main>
+      <div className="container">
+        <NavBar />
+        <main>
+          <Routes>
+            <Route path="/" />
+            <Route
+              path="/DogImages"
+              element={
+                <DogImages dogImages={dogImages} handleClick={handleDogClick} />
+              }
+            />
+            <Route
+              path="/CatImages"
+              element={
+                <CatImages catImages={catImages} handleClick={handleCatClick} />
+              }
+            />
+          </Routes>
+        </main>
+      </div>
     </>
   );
 }
