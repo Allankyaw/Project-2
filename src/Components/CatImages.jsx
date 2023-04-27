@@ -2,10 +2,16 @@ import React from "react";
 import Button from "./Button";
 
 const CatImages = (props) => {
-  const catButton = "Get a cat!";
+  const handleClick = (limit) => () => {
+    props.handleClick(limit);
+  };
+
   return (
     <>
-      <Button handleClick={props.handleClick} buttonName={catButton} />
+      <Button handleClick={handleClick(1)} buttonName="get a cat!" />
+      {/* <Button handleClick={handleClick(2)} buttonName="get 3 cat!" /> */}
+      {/* api only allows return of 1 or 10 */}
+      <Button handleClick={handleClick(10)} buttonName="get 10 cat!" />
 
       {props.catImages.map((url, index) => (
         <div key={index} className="cat">

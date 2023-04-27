@@ -2,10 +2,15 @@ import React from "react";
 import Button from "./Button";
 
 const DogImages = (props) => {
-  const dogButton = "Get a dog!";
+  const handleClick = (limit) => () => {
+    props.handleClick(limit);
+  };
+
   return (
     <>
-      <Button handleClick={props.handleClick} buttonName={dogButton} />
+      <Button handleClick={handleClick(1)} buttonName="get a dog!" />
+      <Button handleClick={handleClick(2)} buttonName="get 2 dogs!" />
+      <Button handleClick={handleClick(3)} buttonName="get 3 dogs!" />
 
       {props.dogImages?.map((url, index) => (
         <div key={index} className="dog">

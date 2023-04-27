@@ -10,8 +10,8 @@ function App() {
   const [dogImages, setDogImages] = useState([]);
   const [catImages, setCatImages] = useState([]);
 
-  const handleDogClick = async () => {
-    const res = await fetch("https://dog.ceo/api/breeds/image/random/1");
+  const handleDogClick = async (limit) => {
+    const res = await fetch(`https://dog.ceo/api/breeds/image/random/${limit}`);
     if (res.status === 200) {
       const dogData = await res.json();
       setDogImages(dogData.message.map((element) => element));
@@ -20,9 +20,9 @@ function App() {
     }
   };
 
-  const handleCatClick = async () => {
+  const handleCatClick = async (limit) => {
     const res = await fetch(
-      "https://api.thecatapi.com/v1/images/search?limit=1"
+      `https://api.thecatapi.com/v1/images/search?limit=${limit}`
     );
     if (res.status === 200) {
       const catData = await res.json();
