@@ -7,7 +7,7 @@ const DogImages = (props) => {
     <>
       <Button handleClick={props.handleClick} buttonName={dogButton} />
 
-      {props.dogImages.map((url, index) => (
+      {props.dogImages?.map((url, index) => (
         <div key={index} className="dog">
           <img src={url} alt="Dog" />
         </div>
